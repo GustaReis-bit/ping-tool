@@ -1,0 +1,14 @@
+# Etapa 1: preparação dos arquivos
+FROM alpine:3.20 AS build
+
+WORKDIR /app
+
+COPY site/ /app/site/
+
+
+# Etapa 2: imagem final do Nginx
+FROM nginx:1.27-alpine
+
+COPY --from=build /app/site/ /usr/share/nginx/html/
+
+EXPOSE 80
